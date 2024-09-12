@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,10 +16,14 @@ namespace Glassberg_HW2_WindowsFormsApp
         public Form1()
         {
             InitializeComponent();
-            RunDistinctIntegers();
+            RunDistinctIntegers(this);
         }
 
-        private static void RunDistinctIntegers() // this is your method
+        private static void setTextboxText(string text, Form1 form)
+        {
+            form.textBox1.Text = text;
+        }
+        private static void RunDistinctIntegers(Form1 form) // this is your method
         {
             /*
              
@@ -31,6 +36,8 @@ namespace Glassberg_HW2_WindowsFormsApp
             you’re doing: you’re taking an array of numbers and conceptually just removing duplicates and counting
             how many are left. If the input array was {1,1,3,5,6,6,7,7,7,9} then the distinct number set is
             {1,3,5,6,7,9}, implying 6 distinct numbers.
+
+
 
             1. Do not alter the list in any way and use a hash set to determine the number of distinct integers
             in the list. The result will be included in the output, which is discussed more below. Also, include
@@ -61,6 +68,20 @@ namespace Glassberg_HW2_WindowsFormsApp
             in where I have neglected to give you the answer) when you’re finished
 
              */
+
+            //use a hash set to determine how many unique numbers there are (then write about time complexity)
+
+            //use O(1) storage (i.e. no dynamic memory like lists, arrays, etc) to determine
+
+            //sort the list, then determine
+
+            //Output: display all 3 methods with strings
+            setTextboxText("Hello World",form);
+
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
