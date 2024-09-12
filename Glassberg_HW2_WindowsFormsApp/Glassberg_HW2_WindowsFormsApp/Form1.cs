@@ -18,11 +18,6 @@ namespace Glassberg_HW2_WindowsFormsApp
             InitializeComponent();
             RunDistinctIntegers(this);
         }
-
-        private static void setTextboxText(string text, Form1 form)
-        {
-            form.textBox1.Text = text;
-        }
         private static void RunDistinctIntegers(Form1 form) // this is your method
         {
             /*
@@ -37,8 +32,17 @@ namespace Glassberg_HW2_WindowsFormsApp
             how many are left. If the input array was {1,1,3,5,6,6,7,7,7,9} then the distinct number set is
             {1,3,5,6,7,9}, implying 6 distinct numbers.
 
+            */
 
+            System.Collections.Generic.List<int> list = new System.Collections.Generic.List<int>();
+            Random rand = new Random();
 
+            //create a list of 10,000 random integers from [0,20.000]
+            for(int i = 0; i < 10000; i++) {
+                list.Add(rand.Next(0,20000));
+            }
+
+            /*
             1. Do not alter the list in any way and use a hash set to determine the number of distinct integers
             in the list. The result will be included in the output, which is discussed more below. Also, include
             in the output information about the time complexity of this method. Be careful with this and
@@ -70,13 +74,51 @@ namespace Glassberg_HW2_WindowsFormsApp
              */
 
             //use a hash set to determine how many unique numbers there are (then write about time complexity)
+            System.Collections.Generic.HashSet<int> hash = new System.Collections.Generic.HashSet<int>();
+            foreach(int i in list)
+            {
+                hash.Add(i);
+            }
+            form.textBox1.Text = "1. HashSet method: " + hash.Count + " unique numbers";
+
+            //time complexity shit
 
             //use O(1) storage (i.e. no dynamic memory like lists, arrays, etc) to determine
+            //traverse the list, at each number retrace steps until it can be determined if the number is unique or not
+            int unique = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                bool isUnique = true;
+
+                for (int j = 0; j < i; j++)
+                {
+                    if (list[i] == list[j])
+                    {
+                        isUnique = false;
+                        break;
+                    }
+                }
+
+                if (isUnique)
+                {
+                    unique++;
+                }
+            }
+            form.textBox1.Text += "\r\n2. O(1) storage method: " + unique + " unique numbers";
 
             //sort the list, then determine
+            list.Sort();
+
+            //start unique counter at 1 because the first item is always unique, guards against trying list[-1]
+            unique = 1;
+            for (int i = 1; i < list.Count; i++)
+            {
+                if (list[i] != list[i - 1])
+                    unique++;
+            }
 
             //Output: display all 3 methods with strings
-            setTextboxText("Hello World",form);
+            form.textBox1.Text = form.textBox1.Text + "\r\n3. Sorted method: " + unique + " unique numbers";
 
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
